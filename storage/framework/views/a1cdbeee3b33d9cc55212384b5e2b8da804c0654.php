@@ -1,6 +1,7 @@
 <?php $__env->startSection('content'); ?>
 
-<div id="app"></div>
+<div id="app">
+</div>
 
 <?php $__env->stopSection(); ?>
 

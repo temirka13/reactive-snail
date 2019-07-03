@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Drivers;
 
@@ -20,7 +21,7 @@ class DriversController extends Controller
     
     public function index()
     {
-        return Drivers::orderBy('id')->get();
+        return Drivers::where('user_id', Auth::id())->get();
     }
 
     /**
@@ -43,10 +44,17 @@ class DriversController extends Controller
     {
         $this->validate($request, [
             'first_name' => 'required',
-            'second_name' => 'required'
+            'second_name' => 'required',
         ]);
 
-        $create = Drivers::create($request->all());
+        $driver = new Drivers([
+            'first_name' => $request->get('first_name'),
+            'second_name' => $request->get('second_name'),
+            'transport' => $request->get('transport'),
+            'user_id' => Auth::id(),
+        ]);
+
+        $driver->save();
         return response()->json(['status' => 'success', 'msg' => 'driver created successfully']);
     }
 
@@ -58,6 +66,7 @@ class DriversController extends Controller
      */
     public function show($id)
     {
+        
         return Drivers::find($id);
     }
 

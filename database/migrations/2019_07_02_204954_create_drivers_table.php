@@ -15,9 +15,15 @@ class CreateDriversTable extends Migration
     {
         Schema::create('drivers', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('user_id')->unsigned();
             $table->string('first_name');
             $table->string('second_name');
+            $table->string('transport');
             $table->timestamps();
+        });
+
+        Schema::table('drivers', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

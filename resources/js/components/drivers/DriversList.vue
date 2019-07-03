@@ -20,6 +20,7 @@
                                 <th>#</th>
                                 <th>Имя</th>
                                 <th>Фамилия</th>
+                                <th>Транспорт</th>
                                 <th>Действие</th>
                             </tr>
                         </thead>
@@ -28,6 +29,7 @@
                                 <td>{{ index + 1 }}</td>
                                 <td>{{ driver.first_name }}</td>
                                 <td>{{ driver.second_name }}</td>
+                                <td>{{ driver.transport }}</td>
                                 <td>
                                     <router-link class="btn btn-info btn-xs" :to="{name: 'DriversView', params: { id: driver.id }}">Подробнее</router-link>
                                     <router-link class="btn btn-warning btn-xs" :to="{name: 'DriversEdit', params: { id: driver.id }}">Изминить</router-link>
@@ -48,9 +50,10 @@ export default {
         return {drivers: ''};
     },
     created: function(){
-        let url = 'http://127.0.0.1:8000/drivers/';
+        let url = '/drivers/';
         Axios.get(url).then((response) => {
             this.drivers = response.data;
+            console.log(response.data)
         });
     },
     computed: {

@@ -9,20 +9,30 @@
         <h3>Изминить параметры транспорта</h3>
         <form v-on:submit.prevent = "editTransport">
             <div class="form-group">
-                <label for="edit-model">Модель</label>
-                <input 
-                    id="edit-statuse" 
-                    v-model="transport.model" 
-                    class="form-control" required 
-                />
+                <label for="add-status">Модель</label>
+                <select id="add-status"  v-model="transport.model">
+                    <option disabled value="">Выберите один из вариантов</option>
+                    <option>Легковое авто</option>
+                    <option>Грузовик</option>
+                    <option>Фургон</option>
+                    <option>Спецтехника</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="edit-status">Статус</label>
                 <select id="add-status"  v-model="transport.status">
                     <option disabled value="">Выберите один из вариантов</option>
-                    <option>Используется</option>
+                    <option>Активная</option>
                     <option>Не используется</option>
-                    <option>В ремонте</option>
+                    <option>На ремонте</option>
+                    <option>Продана</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="add-driver">Водитель</label>
+                <select v-model="transport.driver" id="add-driver">
+                    <option>Водитель отсутствует</option>
+                    <option v-for='(driver, index) in filteredDrivers' >{{ driver.first_name + ' ' + driver.second_name }}</option>
                 </select>
             </div>
             <button type="submit" class="btn btn-xs btn-primary">Изминить</button>
@@ -33,23 +43,39 @@
 <script>
 export default {
     data: function(){
-        return {transport:{
-            model: '',
-            status: ''
-        }}
+        return {
+            transport:{
+                model: '',
+                status: '',
+                driver: 'Водитель отсутствует'
+            },
+            drivers: ''
+        }
     },
     created: function(){
-        let url = 'http://127.0.0.1:8000/transport/'+this.$route.params.id+'edit';
+        let url = '/transport/'+this.$route.params.id+'edit';
         Axios.get(url).then((response) => {
                 this.transport = response.data;
+        });
+        let urlD = '/drivers/';
+        Axios.get(urlD).then((response) => {
+            this.drivers = response.data;
+            console.log(response.data)
         });
     },
     methods: {
         editTransport: function(){
-            let url = 'http://127.0.0.1:8000/transport/'+this.$route.params.id;
+            let url = '/transport/'+this.$route.params.id;
             Axios.patch(url, this.transport).then((response) =>{
                 this.$router.push({name: 'TransportList'})
             });
+        }
+    },
+    computed: {
+        filteredDrivers: function(){
+            if(this.drivers.length){
+                return this.drivers;
+            }
         }
     }
 }

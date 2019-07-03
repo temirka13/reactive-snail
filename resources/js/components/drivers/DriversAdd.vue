@@ -24,6 +24,13 @@
                     class="form-control" required 
                 />
             </div>
+            <div class="form-group">
+                <label for="add-driver">Транспорт</label>
+                <select v-model="driver.transport" id="add-driver">
+                    <option>Транспорт отсутствует</option>
+                    <option v-for='(transport, index) in filteredTransport' >{{ transport.model }}</option>
+                </select>
+            </div>
             <button type="submit" class="btn btn-xs btn-primary">Создать водителя</button>
             <router-link class="btn btn-xs btn-warning" :to="'/drivers-page'">Назад</router-link>
         </form>
@@ -33,19 +40,37 @@
 <script>
 export default {
     data: function(){
-        return {driver: {
-            first_name: '',
-            second_name: ''
-        }};
+        return {
+            driver: {
+                first_name: '',
+                second_name: '',
+                transport: 'Транспорт отсутствует'
+            },
+            transports: ''
+        };
     },
     methods:{
         createDriver: function(){
-            let url = 'http://127.0.0.1:8000/drivers/';
+            let url = '/drivers/';
             Axios.post(url, this.driver).then((response) => {
                 this.$router.push({name: 'DriversList'})
             });
         }
     },
+    created: function(){
+        let url = '/transport/';
+        Axios.get(url).then((response) => {
+            this.transports = response.data;
+            console.log(response.data)
+        });
+    },
+    computed: {
+        filteredTransport: function(){
+            if(this.transports.length){
+                return this.transports;
+            }
+        }
+    }
 }
 </script>
 

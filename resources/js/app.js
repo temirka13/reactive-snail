@@ -11,6 +11,7 @@ window.Axios = require('axios').default;
 let AppLayout = require('./components/App.vue').default;
 
 const Home = Vue.component('Home', require('./components/Home.vue').default);
+const Main = Vue.component('Main', require('./components/Main.vue').default);
 const TransportList = Vue.component('TransportList', require('./components/transport/TransportList.vue').default);
 const TransportAdd = Vue.component('TransportAdd', require('./components/transport/TransportAdd.vue').default);
 const TransportEdit = Vue.component('TransportEdit', require('./components/transport/TransportEdit.vue').default);
@@ -27,6 +28,11 @@ const DriversView = Vue.component('DriversView', require('./components/drivers/D
 Vue.use(VueRouter, VueAxios, axios);
 
 const routes = [
+    {
+        name: 'Main',
+        path: '/',
+        component: Main
+    },
     {
         name: 'Home',
         path: '/home',

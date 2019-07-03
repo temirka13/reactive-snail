@@ -6,28 +6,40 @@
         </router-link>
         <br>
         <br>
-        <h3>Транспорт</h3>
-        <h5>Модель: <strong>{{ transport.model}}</strong></h5>
-        <h5>Статус: <strong>{{ transport.status}}</strong></h5>
+        <div class="transport-card col-md-6">
+            <h3>Транспорт</h3>
+            <hr>
+            <h5>Модель: <strong>{{ transport.model}}</strong></h5>
+            <h5>Статус: <strong>{{ transport.status}}</strong></h5>
+            <h5>Водитель: <strong>{{ transport.driver}}</strong></h5>
+        </div>
         <br>
-        <span class="glyphicon glyphicon-arrow-left"></span>
     </div>
 </template>
 
 <script>
 export default {
     data: function(){
-        return {transport: {
-            model: '',
-            status: '',
-        }};
+        return {
+            transport: {
+                model: '',
+                status: '',
+            }
+        };
     },
     created: function(){
-        let url = 'http://127.0.0.1:8000/transport/'+this.$route.params.id;
+        let url = '/transport/'+this.$route.params.id;
         Axios.get(url).then((response) => {
             this.transport = response.data;
         });
     },
 }
 </script>
+<style>
+.transport-card{
+    padding: 10px;
+    border-radius: 3px;
+    box-shadow: 0px 5px 15px rgba(41, 41, 41, 0.25);
+}
+</style>
 

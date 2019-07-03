@@ -21,7 +21,7 @@
             }
 
             .full-height {
-                height: 100vh;
+                margin-top: 100px;
             }
 
             .flex-center {

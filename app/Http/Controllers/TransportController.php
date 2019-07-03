@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Transport;
 
@@ -17,9 +18,14 @@ class TransportController extends Controller
         return view('vueApp');
     }
 
-    public function index()
+    public function main()
     {
         return Transport::orderBy('id')->get();
+    }
+
+    public function index()
+    {
+        return Transport::where('user_id', Auth::id())->get();
     }
 
     /**
@@ -42,10 +48,17 @@ class TransportController extends Controller
     {
         $this->validate($request, [
             'model' => 'required',
-            'status' => 'required'
+            'status' => 'required',
         ]);
 
-        $create = Transport::create($request->all());
+        $transport = new Transport([
+            'model' => $request->get('model'),
+            'status' => $request->get('status'),
+            'driver' => $request->get('driver'),
+            'user_id' => Auth::id(),
+        ]);
+
+        $transport->save();
         return response()->json(['status' => 'success', 'msg' => 'transport created successfully']);
     }
 

@@ -23,14 +23,14 @@ export default {
         }};
     },
     created: function(){
-        let url = 'http://127.0.0.1:8000/transport/'+this.$route.params.id+'edit';
+        let url = '/transport/'+this.$route.params.id+'edit';
         Axios.get(url).then((response) => {
                 this.transport = response.data;
         });
     },
     methods: {
         deleteTransport: function(){
-            let url = 'http://127.0.0.1:8000/transport/'+this.$route.params.id;
+            let url = '/transport/'+this.$route.params.id;
             Axios.delete(url, this.transport).then((response) =>{
                 this.$router.push({name: 'TransportList'})
             });

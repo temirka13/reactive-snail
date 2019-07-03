@@ -6,28 +6,40 @@
         </router-link>
         <br>
         <br>
-        <h3>Водитель</h3>
-        <h5>Имя: <strong>{{ driver.first_name}}</strong></h5>
-        <h5>Фамилия: <strong>{{ driver.second_name}}</strong></h5>
+        <div class="driver-card col-md-6">
+            <h3>Водитель</h3>
+            <hr>
+            <h5>Имя: <strong>{{ driver.first_name}}</strong></h5>
+            <h5>Фамилия: <strong>{{ driver.second_name}}</strong></h5>
+            <h5>Транспорт: <strong>{{ driver.transport}}</strong></h5>
+        </div>
         <br>
-        <span class="glyphicon glyphicon-arrow-left"></span>
     </div>
 </template>
 
 <script>
 export default {
     data: function(){
-        return {driver: {
-            first_name: '',
-            second_name: '',
-        }};
+        return {
+            driver: {
+                first_name: '',
+                second_name: '',
+            }
+        };
     },
     created: function(){
-        let url = 'http://127.0.0.1:8000/drivers/'+this.$route.params.id;
+        let url = '/drivers/'+this.$route.params.id;
         Axios.get(url).then((response) => {
             this.driver = response.data;
+            console.log(response.data)
         });
     },
 }
 </script>
-
+<style>
+.driver-card{
+    padding: 10px;
+    border-radius: 3px;
+    box-shadow: 0px 5px 15px rgba(41, 41, 41, 0.25);
+}
+</style>

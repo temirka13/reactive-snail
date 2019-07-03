@@ -19,6 +19,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Модель</th>
+                                <th>Водитель</th>
                                 <th>Статус</th>
                                 <th>Действия</th>
                             </tr>
@@ -27,6 +28,7 @@
                             <tr v-for='(transport, index) in filteredTransport'>
                                 <td>{{ index + 1 }}</td>
                                 <td>{{ transport.model }}</td>
+                                <td>{{ transport.driver }}</td>
                                 <td>{{ transport.status }}</td>
                                 <td>
                                     <router-link class="btn btn-info btn-xs" :to="{name: 'TransportView', params: { id: transport.id }}">Подробнее</router-link>
@@ -48,10 +50,14 @@ export default {
         return {transport: ''};
     },
     created: function(){
-        let url = 'http://127.0.0.1:8000/transport/';
+        let url = '/transport/';
         Axios.get(url).then((response) => {
             this.transport = response.data;
         });
+        // let urlUser = '/user';
+        // Axios.get(urlUser).then((response) => {
+        //     this.transport = response.data;
+        // });
     },
     computed: {
         filteredTransport: function(){
