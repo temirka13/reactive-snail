@@ -2046,7 +2046,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    var url = 'http://127.0.0.1:8000/drivers/' + this.$route.params.id + 'edit';
+    var url = '/drivers/' + this.$route.params.id + 'edit';
     Axios.get(url).then(function (response) {
       _this.driver = response.data;
     });
@@ -2055,7 +2055,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteDriver: function deleteDriver() {
       var _this2 = this;
 
-      var url = 'http://127.0.0.1:8000/drivers/' + this.$route.params.id;
+      var url = '/drivers/' + this.$route.params.id;
       Axios["delete"](url, this.driver).then(function (response) {
         _this2.$router.push({
           name: 'DriversList'
@@ -2128,7 +2128,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    var url = 'http://127.0.0.1:8000/drivers/' + this.$route.params.id + 'edit';
+    var url = '/drivers/' + this.$route.params.id + 'edit';
     Axios.get(url).then(function (response) {
       _this.driver = response.data;
     });
@@ -2142,7 +2142,7 @@ __webpack_require__.r(__webpack_exports__);
     editDriver: function editDriver() {
       var _this2 = this;
 
-      var url = 'http://127.0.0.1:8000/drivers/' + this.$route.params.id;
+      var url = '/drivers/' + this.$route.params.id;
       Axios.patch(url, this.driver).then(function (response) {
         _this2.$router.push({
           name: 'DriversList'

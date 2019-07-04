@@ -49,7 +49,7 @@ export default {
         };
     },
     created: function(){
-        let url = 'http://127.0.0.1:8000/drivers/'+this.$route.params.id+'edit';
+        let url = '/drivers/'+this.$route.params.id+'edit';
         Axios.get(url).then((response) => {
                 this.driver = response.data;
         });
@@ -61,7 +61,7 @@ export default {
     },
     methods: {
         editDriver: function(){
-            let url = 'http://127.0.0.1:8000/drivers/'+this.$route.params.id;
+            let url = '/drivers/'+this.$route.params.id;
             Axios.patch(url, this.driver).then((response) =>{
                 this.$router.push({name: 'DriversList'})
             });
